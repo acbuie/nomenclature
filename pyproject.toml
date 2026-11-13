@@ -27,3 +27,86 @@ dev = [
     "ruff>=0.17.5",
     "ty>=0.0.103",
 ]
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".git-rewrite",
+  ".hg",
+  ".ipynb_checkpoints",
+  ".mypy_cache",
+  ".nox",
+  ".pants.d",
+  ".pyenv",
+  ".pytest_cache",
+  ".pytype",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  ".vscode",
+  "__pypackages__",
+  "_build",
+  "buck-out",
+  "build",
+  "dist",
+  "site-packages",
+  "venv",
+]
+
+# Same as `black`
+line-length = 88
+indent-width = 4
+
+target-version = "py314" # varies as needed
+
+[tool.ruff.lint] # a fairly strict starting point
+select = ["ALL"]
+ignore = [
+  "AIR",
+  "ERA",
+  "FAST",
+  "YTT",
+  "COM",
+  "CPY",
+  "T10",
+  "DJ",
+  "EXE",
+  "INT",
+  "T20",
+  "TD",
+  "NPY",
+  "PD",
+  "W191",
+  "E111",
+  "E114",
+  "E117",
+  "E501",
+  "D203",
+  "D206",
+  "D212",
+  "D300",
+  "Q000",
+  "Q001",
+  "Q003",
+]
+fixable = ["ALL"]
+preview = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.ty.rules]
+dynamic-function-decorator-return = "error"
+missing-type-argument = "error"
+possibly-unresolved-reference = "warn"
+unsound-return = "error"
