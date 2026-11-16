@@ -379,6 +379,7 @@ dev = [
     { name = "pytest" },
     { name = "ruff" },
     { name = "ty" },
+    { name = "types-shapely" },
 ]
 
 [package.metadata]
@@ -394,6 +395,7 @@ dev = [
     { name = "pytest", specifier = ">=9.2.0" },
     { name = "ruff", specifier = ">=0.17.5" },
     { name = "ty", specifier = ">=0.0.103" },
+    { name = "types-shapely", specifier = ">=2.1.0.20261030" },
 ]
 
 [[package]]
@@ -671,6 +673,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/28/26/6065524bfa1095b6a33a3d96ff30cf6459351eea3793baff1d58676269fa/ty-0.0.103-py3-none-win32.whl", hash = "sha256:3c1cf92f0919915114554ce028f28d8465b7ba2ecd7b45aad7565e4b7f4e5824", size = 13878647, upload-time = "2026-11-13T12:10:14.337Z" },
     { url = "https://files.pythonhosted.org/packages/7f/a9/001df4c9e43d12b5d23ffce730815974ab78d59e772dbde6c5623ac81680/ty-0.0.103-py3-none-win_amd64.whl", hash = "sha256:4454ac2e72542289d734df16a723a351c25f8d83a5d478589111a5d345ddc9c9", size = 14756811, upload-time = "2026-11-13T12:10:16.467Z" },
     { url = "https://files.pythonhosted.org/packages/e0/14/24528a2360f1fff1420524b4c8e50b01404a247d111b7fdcd06bb5726ad6/ty-0.0.103-py3-none-win_arm64.whl", hash = "sha256:909046656bb6b186a7d3732a9d31f0ccf6e0954e20fd756061769893a4ffcac7", size = 13961525, upload-time = "2026-11-13T12:10:18.66Z" },
+]
+
+[[package]]
+name = "types-shapely"
+version = "2.1.0.20261030"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d1/fb/c94c0e74109e5778cd619c36ea1f9ad21bb5f3b60c6a4287022c55433e86/types_shapely-2.1.0.20261030.tar.gz", hash = "sha256:2299ee7c5e671ea1f76c190236e1d7895dfd1a32672ff1f4c163da830cd96230", size = 27888, upload-time = "2026-10-30T07:50:33.391Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2b/2e/5d2b8b9a9e6f79749b1817a2a31f36982b2d8ea5873a80eba9daab8fcdee/types_shapely-2.1.0.20261030-py3-none-any.whl", hash = "sha256:73b477a4a4e0e400ddc5324c7f556b9e4aea74bf0e4bcaafe49f66975a27b05f", size = 38616, upload-time = "2026-10-30T07:50:32.313Z" },
 ]
 
 [[package]]
