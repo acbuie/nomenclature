@@ -7,6 +7,7 @@ from nomenclature.target import (
     Target,
     TargetFeatureMapping,
     get_target_features,
+    get_target_features_code,
     validate_target_features,
 )
 
@@ -55,7 +56,7 @@ def test_get_target_features_code():
 
     miranda = ["CR", "AA", "RE", "RU", "SU"]
 
-    assert miranda == get_target_features("miranda", code=True)
+    assert miranda == get_target_features_code("miranda")
 
 
 def test_get_target_features_convert_str():

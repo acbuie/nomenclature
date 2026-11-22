@@ -503,15 +503,12 @@ TargetFeatureMapping: dict[Target, list[Feature]] = {
 }
 
 
-def get_target_features(
-    target: Target, *, code: bool = False
-) -> list[Feature] | list[FeatureCode]:
+def get_target_features(target: Target) -> list[Feature]:
     """
     Get a list of features by target.
 
     Args:
         target: A nomenclature target.
-        code: Whether to return the full Feature name or the shortened code.
 
     Returns:
         List of feature types.
@@ -530,8 +527,32 @@ def get_target_features(
         msg = f"Invalid target {target.lower()}"
         raise ValueError(msg)
 
-    if not code:
-        return features
+    return features
+
+
+def get_target_features_code(target: Target) -> list[FeatureCode]:
+    """
+    Get a list of feature codes by target.
+
+    Args:
+        target: A nomenclature target.
+
+    Returns:
+        List of feature type codes.
+
+    Raises:
+        ValueError: Raised if `target` is not a valid Gazetteer target.
+
+    """
+    if target.lower() not in get_args(Target):
+        msg = f"Invalid target {target.lower()}"
+        raise ValueError(msg)
+
+    features = TargetFeatureMapping.get(target.lower())
+
+    if not features:
+        msg = f"Invalid target {target.lower()}"
+        raise ValueError(msg)
 
     return [FeatureCodeMapping[feature] for feature in features]
 
@@ -547,16 +568,7 @@ def validate_target_features(target: Target, features: list[Feature]) -> list[st
     Returns:
         List of non-validated features if found or an empty list otherwise.
 
-    Raises:
-        TypeError: Raised if ``get_target_features`` returns FeatureCode;
-            should not be possible but makes the type checker happy.
-
     """
-    target_features = get_target_features(target, code=False)
+    target_features = get_target_features(target)
 
-    match target_features:
-        case list() if all(isinstance(x, str) for x in target_features):
-            return list(set(features) - set(target_features))
-        case _:
-            msg = "Error"
-            raise TypeError(msg)
+    return list(set(features) - set(target_features))
