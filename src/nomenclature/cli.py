@@ -10,7 +10,12 @@ from cyclopts import App, Parameter
 from rich.columns import Columns
 from rich.console import Console
 
-from nomenclature.target import Feature, Target, get_target_features
+from nomenclature.target import (
+    Feature,
+    Target,
+    get_target_features,
+    validate_target_features,
+)
 
 app = App(default_parameter=Parameter(negative=(), short_alias=True))
 console = Console()
@@ -31,6 +36,15 @@ def main(
     """
 
     console.print(f"Parsing {target}")
+
+    validation = validate_target_features(target, features)
+
+    if validation:
+        console.print(
+            f"[red]Warning:[/red] {validation} are not valid features on [bold]{target}[/bold], ignoring.",
+            style="italic",
+        )
+
     console.print(f"Requested {features}")
 
 

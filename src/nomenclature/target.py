@@ -534,3 +534,29 @@ def get_target_features(
         return features
 
     return [FeatureCodeMapping[feature] for feature in features]
+
+
+def validate_target_features(target: Target, features: list[Feature]) -> list[str]:
+    """
+    Validate that supplied features are available on a target.
+
+    Args:
+        target: Target to validate.
+        features: List of features to check on a target.
+
+    Returns:
+        List of non-validated features if found or an empty list otherwise.
+
+    Raises:
+        TypeError: Raised if ``get_target_features`` returns FeatureCode;
+            should not be possible but makes the type checker happy.
+
+    """
+    target_features = get_target_features(target, code=False)
+
+    match target_features:
+        case list() if all(isinstance(x, str) for x in target_features):
+            return list(set(features) - set(target_features))
+        case _:
+            msg = "Error"
+            raise TypeError(msg)

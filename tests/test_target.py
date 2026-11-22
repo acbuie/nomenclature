@@ -7,6 +7,7 @@ from nomenclature.target import (
     Target,
     TargetFeatureMapping,
     get_target_features,
+    validate_target_features,
 )
 
 
@@ -64,3 +65,19 @@ def test_get_target_features_convert_str():
     assert titania == get_target_features("tiTanIa")
     assert titania == get_target_features("TITANIA")
     assert titania == get_target_features("Titania")
+
+
+def test_validate_target_features():
+
+    mars_error = validate_target_features(
+        "mars", ["chaos", "crater", "sinus", "satellite feature"]
+    )
+
+    mars_valid = validate_target_features("mars", ["chasma", "crater", "chaos"])
+
+    assert set(mars_error) == {
+        "sinus",
+        "satellite feature",
+    }  # set to solve testing sorting issues
+
+    assert mars_valid == []  # empty if valid
