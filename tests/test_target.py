@@ -8,6 +8,7 @@ from nomenclature.target import (
     TargetFeatureMapping,
     get_target_features,
     get_target_features_code,
+    lookup_feature_id,
     validate_target_features,
 )
 
@@ -82,3 +83,23 @@ def test_validate_target_features():
     }  # set to solve testing sorting issues
 
     assert mars_valid == []  # empty if valid
+
+
+def test_lookup_feature_id():
+
+    unda = {
+        "unda": {
+            "abalos undae": 5,
+            "aspledon undae": 14279,
+            "hyperboreae undae": 2611,
+            "ogygis undae": 15370,
+            "olympia undae": 4451,
+            "siton undae": 14280,
+        }
+    }
+
+    assert unda == lookup_feature_id("mars", ["unda"])
+
+    chaos_len = 30
+
+    assert len(lookup_feature_id("mars", ["chaos"])["chaos"]) == chaos_len

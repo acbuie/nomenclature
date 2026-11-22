@@ -1,5 +1,8 @@
 """Process target requests."""
 
+import csv
+from collections import defaultdict
+from pathlib import Path
 from typing import Literal, get_args
 
 Target = Literal[
@@ -572,3 +575,45 @@ def validate_target_features(target: Target, features: list[Feature]) -> list[st
     target_features = get_target_features(target)
 
     return list(set(features) - set(target_features))
+
+
+def lookup_feature_id(
+    target: Target, features: list[Feature]
+) -> dict[Feature, dict[str, int]]:
+    """
+    Parse the CSV lookup table to find the GPN ID for a target's requested features.
+
+    Args:
+        target: Target.
+        features: Features to parse for their ID.
+
+    Returns:
+        Lookup table containing the features, names, and IDs,
+        e.g. {"unda": {"abalos undae": 5, ...}, "chaos": {...}, ...}
+
+    """
+    feature_codes = [FeatureCodeMapping[feature] for feature in features]
+
+    # invert to convert code back to full name
+    code_feature_lookup = {v: k for k, v in FeatureCodeMapping.items()}
+
+    root_dir = Path(Path(Path(__file__).resolve()).parent)
+    lookup_file = root_dir / Path("./lookup_tables/lookup.csv")
+
+    # tell ty what we expect the dict to look like
+    requested_features: dict[Feature, dict[str, int]] = defaultdict(dict)
+    with lookup_file.open(encoding="utf-8") as f:
+        csv_reader = csv.DictReader(f)
+
+        for row in csv_reader:
+            # skip row if not on target or desired feature type
+            if row["t_name"].lower() != target or row["f_code"] not in set(
+                feature_codes
+            ):
+                continue
+
+            requested_features[code_feature_lookup[row["f_code"]]].update(
+                {row["f_name"].lower(): int(row["f_id"])}
+            )
+
+    return requested_features
