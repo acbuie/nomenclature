@@ -10,12 +10,14 @@ requires-python = ">=3.14"
 dependencies = [
     "aiohttp>=3.14.5",
     "beautifulsoup4>=4.15.0",
+    "cyclopts>=5.5.0",
     "fudgeo>=1.5.10",
+    "rich>=15.0.0",
     "shapely>=2.2.0",
 ]
 
 [project.scripts]
-nomenclature = "nomenclature:main"
+gpn = "nomenclature.main:app"
 
 [build-system]
 requires = ["uv_build>=0.12.7,<0.13.0"]
