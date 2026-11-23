@@ -1,6 +1,6 @@
 [project]
 name = "nomenclature"
-version = "0.1.0"
+version = "0.0.1"
 description = "A web scraper to fetch feature geometries from the Gazetteer of Planetary Nomenclature."
 readme = "README.md"
 authors = [
