@@ -14,6 +14,7 @@ from nomenclature.target import (
     Feature,
     Target,
     get_target_features,
+    lookup_feature_id,
     validate_target_features,
 )
 
@@ -47,8 +48,11 @@ def main(
             style="italic",
         )
 
-    console.print(f"Parsing {target}")
-    console.print(f"Requested {features}")
+    found_features = lookup_feature_id(target, features)
+    for feature_type, feats in found_features.items():
+        console.print(
+            f"- {feature_type.capitalize()}: found {len(feats)} record{'' if len(feats) < 1 else 's'}."
+        )
 
 
 @app.command()
