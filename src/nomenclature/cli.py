@@ -24,7 +24,7 @@ console = Console()
 @app.default()
 def main(
     target: Target,
-    features: Annotated[list[Feature], Parameter(consume_multiple=True)],
+    features: Annotated[list[Feature], Parameter(consume_multiple=1)],
 ) -> None:
     """
     Scrape & store GPN features from a target.
@@ -35,19 +35,19 @@ def main(
 
     """
 
+    # Validate input
     features = list(set(features))  # remove duplicates
 
-    console.print(f"Parsing {target}")
-
     validation = validate_target_features(target, features)
-
-    if msg := "is" if len(validation) == 1 else "are":
+    if validation:
+        msg = "is" if len(validation) == 1 else "are"
         console.print(
             f"[red]Warning:[/red] {validation} {msg} not{' a' if msg == 'is' else ''} "
             f"valid feature{'' if msg == 'is' else 's'} on [bold]{target}[/bold], ignoring.",
             style="italic",
         )
 
+    console.print(f"Parsing {target}")
     console.print(f"Requested {features}")
 
 
